@@ -1,0 +1,21 @@
+$indigo: #6a0dad; // Changed to a deeper violet
+$white: #ffffff; // Kept the same
+$dark: #0a0a0a; // Changed to a darker black
+$green: #00dc93; // Kept the same
+$gradient: linear-gradient(
+  203deg,
+  rgba(106, 13, 173, 1) 0%,
+  rgba(67, 39, 158, 1) 100%
+); // Adjusted to match new indigo
+$gradient2: linear-gradient(
+  250deg,
+  rgba(255, 105, 180, 1) 24%,
+  rgba(106, 13, 173, 1) 100%
+); // Adjusted to include more pink
+
+.green {
+  color: $green;
+}
+.indigo {
+  color: $indigo;
+}

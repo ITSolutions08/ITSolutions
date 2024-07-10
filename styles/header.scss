@@ -1,0 +1,198 @@
+header {
+  padding: $s 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(30, 30, 30, 0.8);
+  }
+
+  .container {
+    @include flex(center, space-between, none);
+    nav {
+      a {
+        margin: 0 calc(#{$xl} - 2px);
+        position: relative;
+        transition: color 0.3s ease;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: #8e44ad; // Violet color
+          transition: width 0.3s ease;
+        }
+
+        &:hover {
+          color: #8e44ad; // Violet color
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.activeLink {
+  position: relative;
+  color: #8e44ad; // Violet color
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #8e44ad; // Violet color
+    animation: glow 1.5s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 2px #8e44ad, 0 0 4px #8e44ad; // Violet color
+  }
+  to {
+    box-shadow: 0 0 4px #8e44ad, 0 0 8px #8e44ad; // Violet color
+  }
+}
+
+@media screen and (max-width: 800px) {
+  header {
+    nav {
+      display: none;
+    }
+    .openMenu {
+      position: absolute;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      height: 40vh;
+      padding: 20px;
+      background: rgba(30, 30, 30, 0.95); // Dark background
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+      animation: slideDown 0.3s ease-out;
+
+      a {
+        width: 100%;
+        display: flex;
+        margin-bottom: 30px !important;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-out forwards;
+
+        @for $i from 1 through 5 {
+          &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1}s;
+          }
+        }
+      }
+    }
+    .button-primary {
+      display: none;
+    }
+  }
+  .activeLink {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Hamburger menu icon animation
+.hamburger {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  display: none;
+
+  span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: #fff; // White color
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: 0.25s ease-in-out;
+
+    &:nth-child(1) {
+      top: 0px;
+    }
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      top: 9px;
+    }
+
+    &:nth-child(4) {
+      top: 18px;
+    }
+  }
+
+  &.open {
+    span {
+      &:nth-child(1) {
+        top: 9px;
+        width: 0%;
+        left: 50%;
+      }
+
+      &:nth-child(2) {
+        transform: rotate(45deg);
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+
+      &:nth-child(4) {
+        top: 9px;
+        width: 0%;
+        left: 50%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .hamburger {
+    display: block;
+  }
+}

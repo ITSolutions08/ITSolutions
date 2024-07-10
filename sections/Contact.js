@@ -1,4 +1,5 @@
 import { Title, TitleSm } from "@/components/common/Title";
+import emailjs from "@emailjs/browser";
 import React, { useRef } from "react";
 import { AiFillInstagram } from "react-icons/ai";
 
@@ -13,20 +14,15 @@ const Contact = () => {
     e.preventDefault();
 
     emailjs
-      .sendForm(
-        "service_i92kbme",
-        "template_9zxc2yy",
-        form.current,
-        "CMhCfKVztkU2aLxkS"
-      )
+      .sendForm("service_i92kbme", "template_9zxc2yy", form.current, {
+        publicKey: "yclGYc31Zq3pkIoEB",
+      })
       .then(
-        (result) => {
-          console.log("Email sent successfully!", result.text);
-          // Optionally clear the form fields after successful submission
-          form.current.reset();
+        () => {
+          console.log("SUCCESS!");
         },
         (error) => {
-          console.error("Failed to send email. Error:", error.text);
+          console.log("FAILED...", error.text);
         }
       );
   };
@@ -101,7 +97,7 @@ const Contact = () => {
                 Need any services? Fill out the form below to request service.
               </p>
 
-              <form>
+              <form ref={form} onSubmit={sendEmail}>
                 <div className="grid-2">
                   <div className="inputs">
                     <span>Your Name*</span>
